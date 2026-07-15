@@ -1,6 +1,14 @@
 source_captions/
 *.vtt
 
+# Frontend dependencies and generated site content
+frontend/node_modules/
+frontend/dist/
+frontend/public/content/
+frontend/public/content-manifest.json
+frontend/.vite/
+coverage/
+
 # Created by https://www.toptal.com/developers/gitignore/api/macos,windows,linux
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,linux
 

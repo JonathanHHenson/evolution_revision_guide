@@ -76,6 +76,8 @@ docs/                     cross-course synthesis and study aids
   case-studies/           concise lineage comparisons across lesson notes
   revision/               glossary, checklist and active-recall support
 sources/                  video catalogue, caption index and further reading
+frontend/                 static Markdown browser, link checks and site styling
+.github/workflows/         GitHub Pages validation and deployment
 ```
 
 The lesson folders are the detailed source-facing layer. `docs/` should help a
@@ -83,7 +85,9 @@ reader connect ideas across lessons, not compete with or copy whole lesson
 files. `sources/` is the audit and discovery layer. The root README is a clear
 front door; it should not become a second textbook. `GLOSSARY.md` defines terms
 across the whole course, while `APPENDIX.md` holds reusable technical reference
-material that would disrupt the teaching flow if repeated in every lesson.
+material that would disrupt the teaching flow if repeated in every lesson. The
+`frontend/` discovers repository Markdown and local media at build time; do not
+copy lesson prose or images into it as a second source of truth.
 
 ## Ground-truth hierarchy
 
@@ -202,6 +206,8 @@ git diff --check
 git status --short
 rg -n '!\[[^]]*\]\(https?://' --glob '*.md' .
 rg -n 'youtube\.com/watch\?v=[^ )]+&t=[0-9]+s' --glob '*.md' .
+npm --prefix frontend test
+npm --prefix frontend run build
 ```
 
 The first two commands catch malformed patches and accidental files. Review the
@@ -211,8 +217,10 @@ substitute for checking labels, offsets, video IDs, and stream durations.
 
 Before committing, run a local-link validator over all Markdown files, inspect
 every new image with an image-identification tool, and spot-check several
-timestamp links per file against the captions and video. Package only tracked
-repository content, and keep unrelated user changes intact.
+timestamp links per file against the captions and video. The frontend build
+validates exact-case Markdown, folder, image and heading-fragment targets before
+producing the Pages artifact. Package only tracked repository content, and keep
+unrelated user changes intact.
 
 ## Definition of done
 

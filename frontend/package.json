@@ -1,0 +1,42 @@
+{
+  "name": "evolution-revision-guide-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "content:sync": "node scripts/sync-content.mjs",
+    "content:validate": "node scripts/validate-content.mjs",
+    "predev": "npm run content:sync && npm run content:validate",
+    "dev": "vite",
+    "prebuild": "npm run content:sync && npm run content:validate",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "pretest": "npm run content:sync && npm run content:validate",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "katex": "^0.16.22",
+    "mermaid": "^11.9.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-markdown": "^10.1.0",
+    "rehype-katex": "^7.0.1",
+    "rehype-slug": "^6.0.0",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.6.0",
+    "github-slugger": "^2.0.0",
+    "mdast-util-to-string": "^4.0.0",
+    "remark-parse": "^11.0.0",
+    "typescript": "^5.8.3",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0",
+    "vite": "^7.0.0",
+    "vitest": "^3.2.4"
+  }
+}

@@ -141,6 +141,8 @@ docs/                     cross-course explanations and study routes
   case-studies/           lineage-focused comparisons
   revision/               checklist and glossary
 sources/                  video catalogue, transcript index, and reading guide
+frontend/                 GitHub Pages Markdown browser and build tools
+.github/workflows/         automated site validation and Pages deployment
 LICENSE                   repository licence
 ```
 
@@ -155,6 +157,9 @@ The layers have different jobs:
   glossary under `docs/revision/` remains an active-recall aid.
 - **`APPENDIX.md`** holds reusable technical reference material that would
   otherwise interrupt the flow of a lesson.
+- **`frontend/`** turns the same Markdown and lesson-local media into a searchable,
+  fully rendered GitHub Pages site; it does not maintain a duplicate copy of the
+  guide content.
 
 ## Scope and limitations
 
@@ -175,6 +180,7 @@ Before changing the project or adding a newly recorded lesson, read
 image and citation policy, timestamp format, reference-file maintenance,
 future-lesson workflow, and quality gates. New work should deepen the existing
 structure rather than add parallel “expanded” notes or detached source maps.
+The website build and local-link checks are documented in `frontend/README.md`.
 
 The original guide text and repository-created diagrams are dedicated to the
 public domain under [CC0 1.0 Universal](LICENSE). This dedication does not
