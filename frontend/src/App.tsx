@@ -378,6 +378,7 @@ export default function App() {
   const toggleFloatingVideo = useCallback(() => {
     setFloatingVideoEnabled((enabled) => !enabled)
   }, [])
+  const toggleNavigation = useCallback(() => setNavigationOpen((open) => !open), [])
   const closeNavigation = useCallback(() => setNavigationOpen(false), [])
   const closeLightbox = useCallback(() => setLightboxImage(null), [])
   const articleClass = useMemo(() => currentDocument ? "page-grid with-toc" : "page-grid", [currentDocument])
@@ -408,7 +409,7 @@ export default function App() {
         theme={theme}
         onToggleTheme={() => setTheme((value) => value === "light" ? "dark" : "light")}
         navigationOpen={navigationOpen}
-        onOpenNavigation={() => setNavigationOpen(true)}
+        onToggleNavigation={toggleNavigation}
         floatingVideoEnabled={floatingVideoEnabled}
         onToggleFloatingVideo={toggleFloatingVideo}
         progress={progress}

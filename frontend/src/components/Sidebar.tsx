@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 
 import type { ContentDocument } from "../types"
 import { routeHref } from "../lib/navigation"
@@ -37,7 +37,6 @@ function NavItem({ doc, currentRoute, onNavigate, compact = false }: {
 
 export function Sidebar({ docs, currentRoute, open, onClose }: SidebarProps) {
   const [query, setQuery] = useState("")
-  const searchInput = useRef<HTMLInputElement>(null)
   const normalisedQuery = query.trim().toLocaleLowerCase()
 
   const rootOrder = ["README.md", "ROADMAP.md", "GLOSSARY.md", "APPENDIX.md"]
@@ -92,10 +91,9 @@ export function Sidebar({ docs, currentRoute, open, onClose }: SidebarProps) {
       ? document.activeElement
       : null
     const backgroundRegions = document.querySelectorAll<HTMLElement>(
-      ".skip-link, .site-header, .main-content, .floating-video",
+      ".skip-link, .site-header .brand, .site-header .header-actions, .main-content, .floating-video",
     )
     backgroundRegions.forEach((region) => region.setAttribute("inert", ""))
-    searchInput.current?.focus()
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose()
@@ -137,7 +135,6 @@ export function Sidebar({ docs, currentRoute, open, onClose }: SidebarProps) {
         <SearchIcon />
         <span className="sr-only">Search pages and headings</span>
         <input
-          ref={searchInput}
           type="search"
           value={query}
           onChange={(event) => setQuery(event.target.value)}

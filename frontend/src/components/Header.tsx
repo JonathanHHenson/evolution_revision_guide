@@ -1,11 +1,11 @@
 import { GITHUB_REPOSITORY_URL } from "../lib/github"
-import { CompassMark, FloatingVideoIcon, GitHubIcon, MenuIcon, MoonIcon, SunIcon } from "./Icons"
+import { CloseIcon, CompassMark, FloatingVideoIcon, GitHubIcon, MenuIcon, MoonIcon, SunIcon } from "./Icons"
 
 interface HeaderProps {
   theme: "light" | "dark"
   onToggleTheme: () => void
   navigationOpen: boolean
-  onOpenNavigation: () => void
+  onToggleNavigation: () => void
   floatingVideoEnabled: boolean
   onToggleFloatingVideo: () => void
   progress: number
@@ -15,7 +15,7 @@ export function Header({
   theme,
   onToggleTheme,
   navigationOpen,
-  onOpenNavigation,
+  onToggleNavigation,
   floatingVideoEnabled,
   onToggleFloatingVideo,
   progress,
@@ -27,12 +27,12 @@ export function Header({
         id="navigation-toggle"
         className="icon-button mobile-menu"
         type="button"
-        onClick={onOpenNavigation}
-        aria-label="Open field journal navigation"
+        onClick={onToggleNavigation}
+        aria-label={`${navigationOpen ? "Close" : "Open"} field journal navigation`}
         aria-controls="field-journal-navigation"
         aria-expanded={navigationOpen}
       >
-        <MenuIcon />
+        {navigationOpen ? <CloseIcon /> : <MenuIcon />}
       </button>
       <a className="brand" href="#/" aria-label="Evolution Field Guide home">
         <CompassMark className="brand-mark" />
