@@ -29,10 +29,10 @@ timestamp, and YouTube navigation. On desktop, the custom overlay adds widely sp
 back/forward ten-second buttons and close; the jump buttons are omitted on
 mobile and coarse-pointer devices. With a fine pointer, the overlay stays
 visible while the player is hovered and fades one second after the pointer
-leaves; touch and keyboard interactions use the same one-second timer.
-Persistent lower-right shortcuts provide a mute toggle and open the original
-timestamp directly on YouTube; the YouTube link uses an icon-only treatment on
-mobile. Outside the explicit custom controls,
+leaves; touch and keyboard interactions use the same one-second timer. The mute
+and YouTube shortcuts sit beneath the grab bar and close button in the top-right,
+then disappear completely with the overlay; the YouTube link uses an icon-only
+treatment on mobile. Outside the explicit custom controls,
 the YouTube iframe owns the video surface so its native mouse,
 playback, timeline, caption, settings, and fullscreen interactions remain
 unobstructed. Dragging starts from the persistent grab bar and can then continue

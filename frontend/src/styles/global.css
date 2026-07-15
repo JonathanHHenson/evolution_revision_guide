@@ -1495,7 +1495,9 @@
     }
 
     .floating-video.controls-visible .floating-video-controls button,
-    .floating-video.keyboard-controls .floating-video-controls button {
+    .floating-video.controls-visible .floating-youtube-link,
+    .floating-video.keyboard-controls .floating-video-controls button,
+    .floating-video.keyboard-controls .floating-youtube-link {
         pointer-events: auto;
     }
 
@@ -1506,7 +1508,8 @@
             opacity: 1;
         }
 
-        .floating-video:hover .floating-video-controls button {
+        .floating-video:hover .floating-video-controls button,
+        .floating-video:hover .floating-youtube-link {
             pointer-events: auto;
         }
     }
@@ -1543,15 +1546,13 @@
 
     .floating-video-actions {
         position: absolute;
+        top: 46px;
         right: 8px;
-        bottom: 52px;
         z-index: 6;
         display: flex;
         align-items: center;
         gap: .4rem;
         pointer-events: none;
-        opacity: .55;
-        transition: opacity .2s ease;
     }
 
     .floating-mute-toggle {
@@ -1562,7 +1563,7 @@
         padding: 0;
         border: 1px solid rgb(255 255 255 / 18%);
         border-radius: 50%;
-        pointer-events: auto;
+        pointer-events: none;
         color: #f0c27e;
         background: rgb(8 27 28 / 72%);
         backdrop-filter: blur(8px);
@@ -1578,7 +1579,7 @@
         padding: 0 .65rem;
         border: 1px solid rgb(255 255 255 / 18%);
         border-radius: 99px;
-        pointer-events: auto;
+        pointer-events: none;
         color: #ff766b;
         background: rgb(8 27 28 / 72%);
         backdrop-filter: blur(8px);
@@ -1621,16 +1622,7 @@
         flex: none;
     }
 
-    .floating-video-actions:hover,
-    .floating-video-actions:focus-within {
-        opacity: 1;
-    }
 
-    @media (hover: hover) and (pointer: fine) {
-        .floating-video:hover .floating-video-actions {
-            opacity: 1;
-        }
-    }
 
     .floating-transport {
         position: absolute;

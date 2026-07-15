@@ -446,31 +446,7 @@ export function FloatingVideoPlayer({ video, onClose }: FloatingVideoPlayerProps
         </div>
       )}
 
-      <div className="floating-video-actions">
-        <button
-          className="floating-mute-toggle"
-          type="button"
-          onClick={toggleMute}
-          disabled={!ready}
-          aria-label="Mute video"
-          aria-pressed={muted}
-          title={muted ? "Unmute video" : "Mute video"}
-        >
-          {muted ? <MutedIcon /> : <VolumeIcon />}
-        </button>
 
-        <a
-          className="floating-youtube-link"
-          href={video.originalUrl}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Open this video on YouTube"
-          title="Open on YouTube"
-        >
-          <YouTubeIcon />
-          <span>YouTube</span>
-        </a>
-      </div>
 
       <div
         className="floating-video-dragbar"
@@ -494,6 +470,32 @@ export function FloatingVideoPlayer({ video, onClose }: FloatingVideoPlayerProps
         <button ref={closeButton} className="floating-close" type="button" onClick={onClose} aria-label="Close floating video" title="Close player">
           <CloseIcon />
         </button>
+
+        <div className="floating-video-actions">
+          <button
+            className="floating-mute-toggle"
+            type="button"
+            onClick={toggleMute}
+            disabled={!ready}
+            aria-label="Mute video"
+            aria-pressed={muted}
+            title={muted ? "Unmute video" : "Mute video"}
+          >
+            {muted ? <MutedIcon /> : <VolumeIcon />}
+          </button>
+
+          <a
+            className="floating-youtube-link"
+            href={video.originalUrl}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Open this video on YouTube"
+            title="Open on YouTube"
+          >
+            <YouTubeIcon />
+            <span>YouTube</span>
+          </a>
+        </div>
 
         <div className="floating-transport">
           <button type="button" onClick={() => seekBy(-10)} disabled={!ready} aria-label="Go back 10 seconds" title="Back 10 seconds">
