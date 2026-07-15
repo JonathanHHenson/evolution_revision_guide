@@ -23,10 +23,11 @@ readers and off for mobile or coarse-pointer readers, then remembers the chosen
 setting in the browser. When enabled, YouTube livestream and timestamp links
 open in a movable, resizable in-page player. YouTube’s unobstructed native
 control area provides playback, volume, captions, the current timestamp, and
-YouTube navigation. The custom overlay adds widely spaced back/forward
-ten-second buttons and close. With a fine pointer, it stays visible while the
-player is hovered and fades one second after the pointer leaves; touch and
-keyboard interactions use the same one-second timer. Outside the explicit
+YouTube navigation. On desktop, the custom overlay adds widely spaced
+back/forward ten-second buttons and close; the jump buttons are omitted on
+mobile and coarse-pointer devices. With a fine pointer, the overlay stays
+visible while the player is hovered and fades one second after the pointer
+leaves; touch and keyboard interactions use the same one-second timer. Outside the explicit
 custom controls, the YouTube iframe owns the video surface so its native mouse,
 playback, timeline, caption, settings, and fullscreen interactions remain
 unobstructed. Dragging starts from the persistent grab bar and can then continue
@@ -34,9 +35,13 @@ across or beyond the player; the top-left resize handle also remains available
 while the overlay is hidden. Modified clicks such as Command-click and
 Ctrl-click retain normal browser link behaviour.
 
-The YouTube IFrame API is loaded only after a reader opens a video. At that
-point the browser connects to YouTube and the embedded playback is subject to
-YouTube's availability and privacy practices.
+The YouTube IFrame API is loaded only after a reader opens a video. The player
+uses YouTube’s regular embed host so the browser can present an existing account
+session—including Premium eligibility—when its third-party-cookie policy allows
+it. The site cannot read YouTube cookies or account information. Browsers that
+block or partition those cookies may still show signed-out playback and ads.
+Embedded playback remains subject to YouTube’s availability and privacy
+practices.
 
 ## Validation and production build
 

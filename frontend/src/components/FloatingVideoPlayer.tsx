@@ -178,7 +178,7 @@ export function FloatingVideoPlayer({ video, onClose }: FloatingVideoPlayerProps
         loadedRequestId.current = initialVideo.requestId
         player.current = new api.Player(mount, {
           videoId: initialVideo.videoId,
-          host: "https://www.youtube-nocookie.com",
+          host: "https://www.youtube.com",
           width: "100%",
           height: "100%",
           playerVars: {

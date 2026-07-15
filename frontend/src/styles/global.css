@@ -1556,6 +1556,13 @@
         height: 45px;
     }
 
+    @media (max-width: 720px),
+    (hover: none) and (pointer: coarse) {
+        .floating-transport {
+            display: none;
+        }
+    }
+
     .floating-video-resize {
         position: absolute;
         top: 0;
@@ -2484,11 +2491,6 @@
             min-width: 0;
             max-width: none;
             border-radius: 12px 17px 13px 15px;
-        }
-
-        .floating-transport button {
-            width: 41px;
-            height: 41px;
         }
 
         .lightbox {
