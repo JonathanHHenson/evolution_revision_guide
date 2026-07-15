@@ -32,7 +32,8 @@ visible while the player is hovered and fades one second after the pointer
 leaves; touch and keyboard interactions use the same one-second timer. The mute
 and YouTube shortcuts sit beneath the grab bar and close button in the top-right,
 then disappear completely with the overlay; the YouTube link uses an icon-only
-treatment on mobile. Outside the explicit custom controls,
+treatment on mobile. Opening that link closes the player and switches the
+**Floating video** preference off. Outside the explicit custom controls,
 the YouTube iframe owns the video surface so its native mouse,
 playback, timeline, caption, settings, and fullscreen interactions remain
 unobstructed. Dragging starts from the persistent grab bar and can then continue

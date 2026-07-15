@@ -59,6 +59,7 @@ declare global {
 interface FloatingVideoPlayerProps {
   video: FloatingVideoRequest
   onClose: () => void
+  onOpenYouTube: () => void
 }
 
 interface Position {
@@ -148,7 +149,7 @@ function navigatePlayerToRequest(activePlayer: YouTubePlayer, video: FloatingVid
   })
 }
 
-export function FloatingVideoPlayer({ video, onClose }: FloatingVideoPlayerProps) {
+export function FloatingVideoPlayer({ video, onClose, onOpenYouTube }: FloatingVideoPlayerProps) {
   const playerWindow = useRef<HTMLDivElement>(null)
   const playerHost = useRef<HTMLDivElement>(null)
   const closeButton = useRef<HTMLButtonElement>(null)
@@ -489,6 +490,7 @@ export function FloatingVideoPlayer({ video, onClose }: FloatingVideoPlayerProps
             href={video.originalUrl}
             target="_blank"
             rel="noreferrer"
+            onClick={onOpenYouTube}
             aria-label="Open this video on YouTube"
             title="Open on YouTube"
           >

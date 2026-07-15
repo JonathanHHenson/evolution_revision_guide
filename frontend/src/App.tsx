@@ -375,6 +375,10 @@ export default function App() {
       if (floatingVideoTrigger.current?.isConnected) floatingVideoTrigger.current.focus()
     })
   }, [])
+  const openFloatingVideoOnYouTube = useCallback(() => {
+    setFloatingVideoEnabled(false)
+    closeFloatingVideo()
+  }, [closeFloatingVideo])
   const toggleFloatingVideo = useCallback(() => {
     setFloatingVideoEnabled((enabled) => !enabled)
   }, [])
@@ -450,7 +454,11 @@ export default function App() {
       </main>
 
       {floatingVideoEnabled && floatingVideo && (
-        <FloatingVideoPlayer video={floatingVideo} onClose={closeFloatingVideo} />
+        <FloatingVideoPlayer
+          video={floatingVideo}
+          onClose={closeFloatingVideo}
+          onOpenYouTube={openFloatingVideoOnYouTube}
+        />
       )}
       <Lightbox image={lightboxImage} onClose={closeLightbox} />
     </div>
