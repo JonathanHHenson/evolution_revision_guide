@@ -11,16 +11,24 @@ import {
   CloseIcon,
   ForwardTenIcon,
   GripIcon,
+  MutedIcon,
   ResizeIcon,
   RewindTenIcon,
+  VolumeIcon,
+  YouTubeIcon,
 } from "./Icons"
 
 interface YouTubePlayer {
   destroy: () => void
   getCurrentTime: () => number
+  getPlayerState: () => number
+  getVideoData: () => { video_id: string }
+  isMuted: () => boolean
   loadVideoById: (options: { videoId: string; startSeconds: number }) => void
+  mute: () => void
   playVideo: () => void
   seekTo: (seconds: number, allowSeekAhead: boolean) => void
+  unMute: () => void
 }
 
 interface YouTubePlayerEvent {
@@ -75,6 +83,7 @@ interface PointerSession {
 }
 
 const DRAG_ACTIVATION_DISTANCE = 5
+const YOUTUBE_STATE_PLAYING = 1
 
 let youtubeApiPromise: Promise<YouTubeApi> | null = null
 
@@ -126,12 +135,26 @@ function clampPosition(left: number, top: number, width: number, height: number)
   }
 }
 
+function navigatePlayerToRequest(activePlayer: YouTubePlayer, video: FloatingVideoRequest) {
+  if (activePlayer.getVideoData().video_id === video.videoId) {
+    activePlayer.seekTo(video.startSeconds, true)
+    if (activePlayer.getPlayerState() !== YOUTUBE_STATE_PLAYING) activePlayer.playVideo()
+    return
+  }
+
+  activePlayer.loadVideoById({
+    videoId: video.videoId,
+    startSeconds: video.startSeconds,
+  })
+}
+
 export function FloatingVideoPlayer({ video, onClose }: FloatingVideoPlayerProps) {
   const playerWindow = useRef<HTMLDivElement>(null)
   const playerHost = useRef<HTMLDivElement>(null)
   const closeButton = useRef<HTMLButtonElement>(null)
   const player = useRef<YouTubePlayer | null>(null)
   const latestVideo = useRef(video)
+  const openingRequestId = useRef(video.requestId)
   const loadedRequestId = useRef<number | null>(null)
   const focusedRequestId = useRef<number | null>(null)
   const hideTimer = useRef<number | null>(null)
@@ -142,6 +165,7 @@ export function FloatingVideoPlayer({ video, onClose }: FloatingVideoPlayerProps
   const [controlsVisible, setControlsVisible] = useState(true)
   const [keyboardControls, setKeyboardControls] = useState(false)
   const [ready, setReady] = useState(false)
+  const [muted, setMuted] = useState(false)
   const [error, setError] = useState("")
 
   latestVideo.current = video
@@ -182,7 +206,7 @@ export function FloatingVideoPlayer({ video, onClose }: FloatingVideoPlayerProps
           width: "100%",
           height: "100%",
           playerVars: {
-            autoplay: 1,
+            autoplay: initialVideo.requestId === openingRequestId.current ? 0 : 1,
             cc_lang_pref: "en",
             cc_load_policy: 1,
             controls: 1,
@@ -199,14 +223,11 @@ export function FloatingVideoPlayer({ video, onClose }: FloatingVideoPlayerProps
               player.current = event.target
               const requestedVideo = latestVideo.current
               if (loadedRequestId.current !== requestedVideo.requestId) {
-                event.target.loadVideoById({
-                  videoId: requestedVideo.videoId,
-                  startSeconds: requestedVideo.startSeconds,
-                })
+                navigatePlayerToRequest(event.target, requestedVideo)
                 loadedRequestId.current = requestedVideo.requestId
               }
+              setMuted(event.target.isMuted())
               setReady(true)
-              event.target.playVideo()
             },
             onError: () => {
               if (!cancelled) setError("YouTube could not play this video here.")
@@ -229,6 +250,17 @@ export function FloatingVideoPlayer({ video, onClose }: FloatingVideoPlayerProps
   }, [])
 
   useEffect(() => {
+    if (!ready) return
+
+    const syncMutedState = () => {
+      if (player.current) setMuted(player.current.isMuted())
+    }
+    syncMutedState()
+    const interval = window.setInterval(syncMutedState, 500)
+    return () => window.clearInterval(interval)
+  }, [ready])
+
+  useEffect(() => {
     setError("")
     revealControls()
     if (video.focusOnOpen && focusedRequestId.current !== video.requestId) {
@@ -237,10 +269,7 @@ export function FloatingVideoPlayer({ video, onClose }: FloatingVideoPlayerProps
     }
     if (!ready || !player.current || loadedRequestId.current === video.requestId) return
 
-    player.current.loadVideoById({
-      videoId: video.videoId,
-      startSeconds: video.startSeconds,
-    })
+    navigatePlayerToRequest(player.current, video)
     loadedRequestId.current = video.requestId
   }, [ready, revealControls, video])
 
@@ -262,6 +291,16 @@ export function FloatingVideoPlayer({ video, onClose }: FloatingVideoPlayerProps
     revealControls()
   }
 
+  const toggleMute = () => {
+    const activePlayer = player.current
+    if (!activePlayer || !ready) return
+
+    const nextMuted = !activePlayer.isMuted()
+    if (nextMuted) activePlayer.mute()
+    else activePlayer.unMute()
+    setMuted(nextMuted)
+    revealControls()
+  }
 
 
   const startPointerSession = (event: ReactPointerEvent<HTMLElement>): PointerSession | null => {
@@ -406,6 +445,32 @@ export function FloatingVideoPlayer({ video, onClose }: FloatingVideoPlayerProps
           <span>{error}</span>
         </div>
       )}
+
+      <div className="floating-video-actions">
+        <button
+          className="floating-mute-toggle"
+          type="button"
+          onClick={toggleMute}
+          disabled={!ready}
+          aria-label="Mute video"
+          aria-pressed={muted}
+          title={muted ? "Unmute video" : "Mute video"}
+        >
+          {muted ? <MutedIcon /> : <VolumeIcon />}
+        </button>
+
+        <a
+          className="floating-youtube-link"
+          href={video.originalUrl}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Open this video on YouTube"
+          title="Open on YouTube"
+        >
+          <YouTubeIcon />
+          <span>YouTube</span>
+        </a>
+      </div>
 
       <div
         className="floating-video-dragbar"

@@ -20,15 +20,20 @@ media into a generated `public/content/` tree before Vite starts.
 
 The **Floating video** setting in the top navigation defaults to on for desktop
 readers and off for mobile or coarse-pointer readers, then remembers the chosen
-setting in the browser. When enabled, YouTube livestream and timestamp links
-open in a movable, resizable in-page player. YouTube’s unobstructed native
-control area provides playback, volume, captions, the current timestamp, and
-YouTube navigation. On desktop, the custom overlay adds widely spaced
+setting in the browser. When enabled, the first YouTube livestream or timestamp
+link opens paused in a movable, resizable in-page player. Links selected while
+the player is already open load at their timestamp and autoplay. If that video
+is already playing, the player seeks in place rather than reloading it. YouTube’s
+unobstructed native control area provides playback, volume, captions, the current
+timestamp, and YouTube navigation. On desktop, the custom overlay adds widely spaced
 back/forward ten-second buttons and close; the jump buttons are omitted on
 mobile and coarse-pointer devices. With a fine pointer, the overlay stays
 visible while the player is hovered and fades one second after the pointer
-leaves; touch and keyboard interactions use the same one-second timer. Outside the explicit
-custom controls, the YouTube iframe owns the video surface so its native mouse,
+leaves; touch and keyboard interactions use the same one-second timer.
+Persistent lower-right shortcuts provide a mute toggle and open the original
+timestamp directly on YouTube; the YouTube link uses an icon-only treatment on
+mobile. Outside the explicit custom controls,
+the YouTube iframe owns the video surface so its native mouse,
 playback, timeline, caption, settings, and fullscreen interactions remain
 unobstructed. Dragging starts from the persistent grab bar and can then continue
 across or beyond the player; the top-left resize handle also remains available

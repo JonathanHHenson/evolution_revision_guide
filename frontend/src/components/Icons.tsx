@@ -122,6 +122,18 @@ export function GitHubIcon(props: IconProps) {
   return <svg {...baseProps} {...props}><path d="M12 2.8a9.2 9.2 0 0 0-2.9 17.9c.5.1.6-.2.6-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 0 1.6 1 1.6 1 .9 1.5 2.4 1.1 3 .8.1-.7.4-1.1.7-1.3-2.2-.3-4.6-1.1-4.6-4.7 0-1 .4-1.9 1-2.5-.1-.3-.4-1.3.1-2.5 0 0 .8-.3 2.6 1a9 9 0 0 1 4.7 0c1.8-1.2 2.6-1 2.6-1 .5 1.2.2 2.2.1 2.5.6.7 1 1.5 1 2.5 0 3.6-2.4 4.4-4.6 4.7.4.3.7.9.7 1.7v2.8c0 .4.2.6.7.5A9.2 9.2 0 0 0 12 2.8Z" fill="currentColor" stroke="none" /></svg>
 }
 
+export function YouTubeIcon(props: IconProps) {
+  return <svg {...baseProps} {...props}><rect x="3" y="6" width="18" height="12" rx="4" fill="currentColor" stroke="none" /><path d="m10 9 5 3-5 3V9Z" fill="#fff" stroke="none" /></svg>
+}
+
+export function VolumeIcon(props: IconProps) {
+  return <svg {...baseProps} {...props}><path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z" /><path d="M15.2 9.2a4 4 0 0 1 0 5.6M18 6.5a8 8 0 0 1 0 11" /></svg>
+}
+
+export function MutedIcon(props: IconProps) {
+  return <svg {...baseProps} {...props}><path d="M11 5 6.5 9H3v6h3.5l4.5 4V5Z" /><path d="m16 9 5 5M21 9l-5 5" /></svg>
+}
+
 export function ResizeIcon(props: IconProps) {
   return <svg {...baseProps} {...props}><path d="m10 20 10-10M15 20l5-5M5 20 20 5" /></svg>
 }
